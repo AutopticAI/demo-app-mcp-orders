@@ -13,6 +13,8 @@ type OrderResponse struct {
 	TotalCents int    `json:"total_cents"`
 	Currency   string `json:"currency"`
 	Status     string `json:"status"`
+	// Channel is the surface the order was placed through: web, ios or partner.
+	Channel string `json:"channel,omitempty"`
 }
 
 // GetOrder writes one order as JSON.
@@ -23,6 +25,7 @@ func GetOrder(w http.ResponseWriter, r *http.Request) {
 		TotalCents: 4250,
 		Currency:   "USD",
 		Status:     "settled",
+		Channel:    "web",
 	}
 
 	w.Header().Set("Content-Type", "application/json")
