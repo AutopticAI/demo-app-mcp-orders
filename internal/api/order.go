@@ -7,9 +7,11 @@ import (
 )
 
 // OrderResponse is the body GET /orders/{id} returns.
+//
+// The customer is no longer carried here: it moved behind /orders/{id}/party
+// so an order can be read without exposing who placed it.
 type OrderResponse struct {
 	OrderID    string `json:"order_id"`
-	CustomerID string `json:"customer_id"`
 	TotalCents int    `json:"total_cents"`
 	Currency   string `json:"currency"`
 	Status     string `json:"status"`
@@ -19,7 +21,6 @@ type OrderResponse struct {
 func GetOrder(w http.ResponseWriter, r *http.Request) {
 	order := OrderResponse{
 		OrderID:    r.PathValue("id"),
-		CustomerID: "cus_8811",
 		TotalCents: 4250,
 		Currency:   "USD",
 		Status:     "settled",
